@@ -1,7 +1,7 @@
 extends ./layouts/base.pug
 
 append head
-  title Login
+  title Signup
   style.
     body {
       padding-top: 40px;
@@ -11,37 +11,30 @@ block content
   div.cotainer
     div.row
       div.col-md-4.col-md-offset-4
-        h1 Login
+        h1 Signup
     div.row
       div.col-md-4.col-md-offset-4
         if message
           div= message
     div.row
       div.col-md-4.col-md-offset-4
-        form(action="/login" method="post")
+        form(action="/signup" method="post")
           div.form-group
             label(for="email") Email
             input(type="email" id="email" name="email" placeholder='Email' value=email).form-control
           div.form-group
             label(for="password") Password
             input(type="password" id="password" name="password" placeholder='Password').form-control
-          div.checkbox.custom-control.custom-checkbox
-            label
-              input(type="checkbox")
-              span.custom-control-indicator
-              | Remember me
-          input(type="hidden" id="next" name="next" value="")
-          button(type="submit").btn.btn-primary Login
+          button(type="submit").btn.btn-primary Signup
     div.row
       div.col-md-4.col-md-offset-4
         hr
-        p Need an account?
+        p Already have an account?
           | #{" "}
-          a(href="/signup") Signup
+          a(href="/login") login
         p Or go
           | #{" "}
           a(href="/") home
           | .
 
 append scripts
-  script(src="js/login.min.js")

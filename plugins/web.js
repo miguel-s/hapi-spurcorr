@@ -24,20 +24,7 @@ internals.after = (server, next) => {
   });
 
   server.route([
-    {
-      method: 'GET',
-      path: '/',
-      config: {
-        description: 'Returns the index page',
-        auth: { strategy: 'spurcorr-session', mode: 'try' },
-        plugins: { 'hapi-auth-cookie': { redirectTo: '/login' } },
-        handler: {
-          view: {
-            template: 'index',
-          },
-        },
-      },
-    },
+    // authentication routes
     {
       method: 'GET',
       path: '/login',
@@ -48,6 +35,72 @@ internals.after = (server, next) => {
         handler: {
           view: {
             template: 'login',
+          },
+        },
+      },
+    },
+    {
+      method: 'POST',
+      path: '/login',
+      config: {
+        description: 'Returns a login form',
+        auth: { strategy: 'spurcorr-session', mode: 'try' },
+        plugins: { 'hapi-auth-cookie': { redirectTo: false } },
+        validate: {
+          payload: require('../models/user.js'),
+          failAction: require('../controllers/login.js'),
+        },
+        handler: require('../controllers/login.js'),
+      },
+    },
+    {
+      method: 'GET',
+      path: '/logout',
+      config: {
+        description: 'Logout user',
+        handler: require('../controllers/logout.js'),
+      },
+    },
+    {
+      method: 'GET',
+      path: '/signup',
+      config: {
+        description: 'Returns a sinup form',
+        auth: { strategy: 'spurcorr-session', mode: 'try' },
+        plugins: { 'hapi-auth-cookie': { redirectTo: false } },
+        handler: {
+          view: {
+            template: 'signup',
+          },
+        },
+      },
+    },
+    {
+      method: 'POST',
+      path: '/signup',
+      config: {
+        description: 'Returns a sinup form',
+        auth: { strategy: 'spurcorr-session', mode: 'try' },
+        plugins: { 'hapi-auth-cookie': { redirectTo: false } },
+        validate: {
+          payload: require('../models/user.js'),
+          failAction: require('../controllers/signup.js'),
+        },
+        handler: require('../controllers/signup.js'),
+      },
+    },
+
+    // web routes
+    {
+      method: 'GET',
+      path: '/',
+      config: {
+        description: 'Returns the index page',
+        auth: { strategy: 'spurcorr-session', mode: 'try' },
+        plugins: { 'hapi-auth-cookie': { redirectTo: '/login' } },
+        handler: {
+          view: {
+            template: 'index',
           },
         },
       },
