@@ -1,0 +1,11 @@
+mixin doughnut(title, subtitle, data)
+  div.doughnut-graph
+    canvas(
+      width="200"
+      height="200"
+      data-chart="doughnut"
+      data-value=data
+      data-segment-stroke-color="#222"
+    ).ex-graph
+  strong.text-muted= title
+  h4= subtitle
