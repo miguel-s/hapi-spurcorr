@@ -1,5 +1,7 @@
 'use strict';
 
+const Joi = require('joi');
+
 const internals = {};
 
 exports.register = (server, options, next) => {
@@ -32,11 +34,7 @@ internals.after = (server, next) => {
         description: 'Returns a login form',
         auth: { strategy: 'spurcorr-session', mode: 'try' },
         plugins: { 'hapi-auth-cookie': { redirectTo: false } },
-        handler: {
-          view: {
-            template: 'login',
-          },
-        },
+        handler: require('../controllers/login.js'),
       },
     },
     {
@@ -68,11 +66,7 @@ internals.after = (server, next) => {
         description: 'Returns a sinup form',
         auth: { strategy: 'spurcorr-session', mode: 'try' },
         plugins: { 'hapi-auth-cookie': { redirectTo: false } },
-        handler: {
-          view: {
-            template: 'signup',
-          },
-        },
+        handler: require('../controllers/signup.js'),
       },
     },
     {
@@ -98,11 +92,32 @@ internals.after = (server, next) => {
         description: 'Returns the index page',
         auth: { strategy: 'spurcorr-session', mode: 'try' },
         plugins: { 'hapi-auth-cookie': { redirectTo: '/login' } },
-        handler: {
-          view: {
-            template: 'index',
+        handler: require('../controllers/index.js'),
+      },
+    },
+    {
+      method: 'GET',
+      path: '/map',
+      config: {
+        description: 'Returns the map page',
+        auth: { strategy: 'spurcorr-session', mode: 'try' },
+        plugins: { 'hapi-auth-cookie': { redirectTo: '/login' } },
+        handler: require('../controllers/map.js'),
+      },
+    },
+    {
+      method: 'GET',
+      path: '/list',
+      config: {
+        description: 'Returns the list page',
+        auth: { strategy: 'spurcorr-session', mode: 'try' },
+        plugins: { 'hapi-auth-cookie': { redirectTo: '/login' } },
+        validate: {
+          query: {
+            page: Joi.number().integer().default(1).optional(),
           },
         },
+        handler: require('../controllers/list.js'),
       },
     },
   ]);
