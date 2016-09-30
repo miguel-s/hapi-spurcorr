@@ -5,6 +5,8 @@ const uuid = require('node-uuid');
 const bcrypt = require('bcryptjs');
 
 module.exports = function handler(request, reply, source, error) {
+  if (request.method === 'get') return reply.view('login');
+
   const next = request.payload.next || '/';
 
   if (request.auth.isAuthenticated) return reply.redirect(next);

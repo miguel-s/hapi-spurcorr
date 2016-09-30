@@ -5,6 +5,8 @@ const uuid = require('node-uuid');
 const bcrypt = require('bcryptjs');
 
 module.exports = function handler(request, reply, source, error) {
+  if (request.method === 'get') return reply.view('signup');
+
   if (request.auth.isAuthenticated) return reply.redirect('/');
 
   if (!request.server.app.settings.spurcorr.allowSignup) {
