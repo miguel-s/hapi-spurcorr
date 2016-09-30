@@ -1,0 +1,49 @@
+extends ./layouts/base.pug
+
+include ./mixins/navs/sidebar.pug
+include ./mixins/navs/dashhead.pug
+include ./mixins/navs/pagination.pug
+
+include ./mixins/components/table.pug
+
+append head
+  title Spurcorr
+  style.
+    body {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+append body
+  div.container
+    div.row
+
+      // navigation
+      div.col-sm-3
+
+        // sidebar
+        +sidebar(path)
+
+      // content
+      div.col-sm-9
+
+        // dashhead
+        +dashhead("List", "Tools", true)
+
+        // check for errors
+        unless error
+
+          // table with tablesorter
+          +table("list", headers, data)
+
+          // pagination
+          div.text-center
+            +pagination(page, pages, path)
+        else
+
+          // error message
+          p Could not retrieve data, please try again in a few minutes.
+
+append scripts
+  script(src="libs/theme-dashboard/js/tablesorter.min.js")
+  script(src="js/list.min.js")
