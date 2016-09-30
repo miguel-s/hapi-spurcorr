@@ -1,0 +1,53 @@
+extends ./layouts/base.pug
+
+include ./mixins/navs/sidebar.pug
+include ./mixins/navs/dashhead.pug
+
+append head
+  title Spurcorr
+  link(rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css")
+  link(rel="stylesheet" href="libs/leaflet.markercluster/css/MarkerCluster.css")
+  link(rel="stylesheet" href="libs/leaflet.markercluster/css/MarkerCluster.Default.css")
+  style.
+    body {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+    .h-sm {
+      height: calc(100vh - 23em);
+    }
+    @media (min-width: 768px) {
+      .h-sm {
+        height: calc(100vh - 17em);
+      }
+    }
+
+append body
+  div.container
+    div.row
+
+      // navigation
+      div.col-sm-3
+
+        // sidebar
+        +sidebar(path)
+
+      // content
+      div.col-sm-9
+
+        // dashhead
+        +dashhead("Map", "Dashboards", true)
+
+        // data store
+        unless error
+          div(hidden data-venues=data)#data
+        else
+          p Could not retrieve data, please try again in a few minutes.
+
+        // map
+        div#map.w-full.h-sm
+
+append scripts
+  script(src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js")
+  script(src="libs/leaflet.markercluster/js/leaflet.markercluster.min.js")
+  script(src="js/map.min.js")
