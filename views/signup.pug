@@ -5,33 +5,34 @@ append head
   style.
     body {
       padding-top: 40px;
+      padding-bottom: 40px;
     }
 
-block content
-  div.cotainer
+append body
+  div.container
     div.row
-      div.col-md-4.col-md-offset-4
+      div.col-sm-4.col-sm-offset-4
         h1 Signup
     div.row
-      div.col-md-4.col-md-offset-4
+      div.col-sm-4.col-sm-offset-4
         if message
           div= message
     div.row
-      div.col-md-4.col-md-offset-4
-        form(action="/signup" method="post")
+      div.col-sm-4.col-sm-offset-4
+        form(action="signup" method="post")
           div.form-group
             label(for="email") Email
-            input(type="email" id="email" name="email" placeholder='Email' value=email).form-control
+            input(type="email" name="email" placeholder='Email' value=email)#email.form-control
           div.form-group
             label(for="password") Password
-            input(type="password" id="password" name="password" placeholder='Password').form-control
+            input(type="password" name="password" placeholder='Password')#password.form-control
           button(type="submit").btn.btn-primary Signup
     div.row
-      div.col-md-4.col-md-offset-4
+      div.col-sm-4.col-sm-offset-4
         hr
         p Already have an account?
           | #{" "}
-          a(href="/login") login
+          a(href="login") login
         p Or go
           | #{" "}
           a(href="/") home
