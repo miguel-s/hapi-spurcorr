@@ -1,11 +1,74 @@
 extends ./layouts/base.pug
 
+include ./mixins/navs/sidebar.pug
+include ./mixins/navs/dashhead.pug
+include ./mixins/navs/tablist.pug
+
+include ./mixins/graphs/doughnut.pug
+include ./mixins/graphs/line.pug
+include ./mixins/graphs/bar.pug
+include ./mixins/graphs/sparkline.pug
+
 append head
   title Spurcorr
+  style.
+    body {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
 
-append header
+append body
+  div.container
+    div.row
 
-append content
-  p Hello, world!
+      // navigation
+      div.col-sm-3
+
+        // sidebar
+        +sidebar(path)
+
+      // content
+      div.col-sm-9
+
+        // dashhead
+        +dashhead("Overview", "Dashboards", false)
+
+        // summary
+        +tablist(["Traffic", "Sales", "Support"], 0)
+        div.tab-content
+          div(role="tabpanel")#traffic.tab-pane.active
+            div.row.text-center.m-t-md
+              div.col-sm-4.m-b-md
+                div.w-lg.m-x-auto
+                  +doughnut("Traffic", "New vs Returning", [{ value: 230, color: '#42a5f5', label: 'Returning' }, { value: 130, color: '#1bc98e', label: 'New' }])
+              div.col-sm-4.m-b-md
+                div.w-lg.m-x-auto
+                  +doughnut("Revenue", "New vs Recurring", [{ value: 330, color: '#42a5f5', label: 'Recurring' }, { value: 30, color: '#1bc98e', label: 'New' }])
+              div.col-sm-4.m-b-md
+                div.w-lg.m-x-auto
+                  +doughnut("Traffic", "Direct vs Referrals", [{ value: 100, color: '#42a5f5', label: 'Referrals' }, { value: 260, color: '#1bc98e', label: 'Direct' }])
+          div(role="tabpanel")#sales.tab-pane
+            div.m-b-md
+              +line(['','Aug 29','','','Sept 5','','','Sept 12','','','Sept 19',''], [{data: [2500, 3300, 2512, 2775, 2498, 3512, 2925, 4275, 3507, 3825, 3445, 3985]}])
+          div(role="tabpanel")#support.tab-pane
+            div.m-b-md
+              +bar(['August','September','October','November','December','January','February'], [{ label: 'First dataset', data: [65, 59, 80, 81, 56, 55, 40] }, { label: 'Second dataset', data: [28, 48, 40, 19, 86, 27, 90] }])
+
+        // quick stats
+        div.hr-divider.m-t-md.m-b
+          h3.hr-divider-content.hr-divider-heading Quick stats
+        div.row
+          div.col-sm-6.col-lg-3.m-b
+            +sparkline("success", "Revenue", 12938, 0.005, ['a','b','c','d','e','f','g'], [{data:[28,68,41,43,96,45,100]}])
+          div.col-sm-6.col-lg-3.m-b
+            +sparkline("danger", "Customers", 758, -0.013, ['a','b','c','d','e','f','g'], [{data:[4,34,64,27,96,50,80]}])
+          div.col-sm-6.col-lg-3.m-b
+            +sparkline("info", "Placeholder", 1293, 0.0675, ['a','b','c','d','e','f','g'], [{data:[12,38,32,60,36,54,68]}])
+          div.col-sm-6.col-lg-3.m-b
+            +sparkline("warning", "Placeholder", 758, -0.013, ['a','b','c','d','e','f','g'], [{data:[43,48,52,58,50,95,100]}])
+
+        hr
 
 append scripts
+  script(src="libs/theme-dashboard/js/chart.min.js")
+  script(src="js/index.min.js")
