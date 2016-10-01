@@ -4,7 +4,21 @@
   "description": "Spurcorr plugin for hapi-server.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init": "mkdir public && cd public && mkdir js css img libs && cd ..",
+    "js:clean": "rm -rf public/js/*",
+    "js:copy": "cp -a src/js/* public/js | true",
+    "build:js": "npm run js:clean && npm run js:copy",
+    "css:clean": "rm -rf public/css/*",
+    "css:copy": "cp -a src/sass/* public/css | true",
+    "build:css": "npm run css:clean && npm run css:copy",
+    "assets:clean": "rm -rf public/img/*",
+    "assets:copy": "cp -a src/img/* public/img | true",
+    "build:assets": "npm run assets:clean && npm run assets:copy",
+    "libs:clean": "rm -rf public/libs/*",
+    "libs:copy": "cp -a src/libs/* public/libs | true",
+    "build:libs": "npm run libs:clean && npm run libs:copy",
+    "build": "npm run build:js && npm run build:css && npm run build:assets && npm run build:libs"
   },
   "author": "Miguel Serrano",
   "license": "ISC",
