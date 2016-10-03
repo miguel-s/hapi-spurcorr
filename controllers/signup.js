@@ -9,7 +9,7 @@ module.exports = function handler(request, reply, source, error) {
 
   if (request.auth.isAuthenticated) return reply.redirect('/');
 
-  if (!request.server.app.settings.spurcorr.allowSignup) {
+  if (process.env.ALLOW_SIGNUP_SPURCORR === 'false') {
     return reply.view('signup', {
       message: 'Signup not allowed',
       email: request.payload.email,
