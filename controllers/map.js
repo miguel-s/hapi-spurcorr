@@ -2,7 +2,7 @@
 
 module.exports = function handler(request, reply) {
   request.server.app.minsaitdb.query`
-    SELECT *
+    SELECT A.*
     FROM (
       SELECT  [CD_PDV] AS [id],
               [SEGMENTO] AS [segment],
