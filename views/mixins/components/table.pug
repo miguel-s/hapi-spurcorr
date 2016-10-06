@@ -6,7 +6,7 @@ mixin table(id, headers, body)
           each header in headers
             th= header
       tbody
-        each row in body.slice(page - 1, (page - 1) + 20)
+        each row in body
           tr
             each datum in row
               td= datum

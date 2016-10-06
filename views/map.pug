@@ -6,8 +6,8 @@ include ./mixins/navs/dashhead.pug
 append head
   title Spurcorr
   link(rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css")
-  link(rel="stylesheet" href="libs/leaflet.markercluster/css/MarkerCluster.css")
-  link(rel="stylesheet" href="libs/leaflet.markercluster/css/MarkerCluster.Default.css")
+  link(rel="stylesheet" href="/libs/leaflet.markercluster/css/MarkerCluster.css")
+  link(rel="stylesheet" href="/libs/leaflet.markercluster/css/MarkerCluster.Default.css")
   style.
     body {
       padding-top: 50px;
@@ -49,5 +49,5 @@ append body
 
 append scripts
   script(src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js")
-  script(src="libs/leaflet.markercluster/js/leaflet.markercluster.min.js")
-  script(src="js/map.min.js")
+  script(src="/libs/leaflet.markercluster/js/leaflet.markercluster.min.js")
+  script(src="/js/map.min.js")

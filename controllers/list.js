@@ -1,7 +1,5 @@
 'use strict';
 
-const Boom = require('boom');
-
 module.exports = function handler(request, reply) {
   const sql = request.server.app.minsaitdb;
 
@@ -16,7 +14,7 @@ module.exports = function handler(request, reply) {
     page: request.query.page,
     pages: Math.ceil(values[0][0].pages / 20),
     headers: Object.keys(values[1][0]),
-    data: values[1],
+    data: values[1].slice(request.query.page - 1, (request.query.page - 1) + 20),
   }))
   .catch(err => reply.view('list', {
     path: request.path,
