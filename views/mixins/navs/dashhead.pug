@@ -3,6 +3,8 @@ mixin dashhead(title, subtitle, separator)
     div.dashhead-titles
       h6.dashhead-subtitle= subtitle
       h2.dashhead-title= title
-    div.btn-toolbar.dashhead-toolbar
+    if block
+      div.btn-toolbar.dashhead-toolbar
+        block
   if separator
     hr.m-t
